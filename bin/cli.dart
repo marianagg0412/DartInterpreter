@@ -1,6 +1,7 @@
-import 'package:cli/cli.dart' as cli;
+import '../Lang/repl.dart';
 //Main function
 
 void main(List<String> arguments) {
-  print('Hello world: ${cli.calculate()}! aaaaA');
+  startRepl();
 }
+

@@ -1,74 +1,63 @@
 enum TokenType{
-  ASSIGN,
-  COMMA,
-  PERIODT,
-  DIV,
-  FALSE,
-  TRUE,
-  IF,
-  ELSE,
-  FUNCTION,
-  RETURN,
-  EOF,
-  EQ,
-  GT,
-  GTE,
-  IDENT,
-  LET,
-  ILLEGAL,
-  INT,
-  LT,
-  LTE,
-  NOE_,
-  NOT,
-  PLUS,
-  SEMICOLON
- 
+    ASSIGN,
+    COMMA, 
+    DOT,
+    FALSE,
+    TRUE,
+    IF,
+    ELSE,
+    FUNCTION,
+    RETURN,
+    EOF,
+    EQ,
+    GT,
+    GTE,
+    IDENT,
+    LET,
+    ILLEGAL,
+    INT,
+    LT,
+    LTE,
+    NOT,
+    NOTQ,
+    PLUS,
+    SEMICOLON,
+    L_PAREN,
+    R_PAREN,
+    L_BRACE,
+    R_BRACE,
+    MINUS,
+    DIVISION,
+    MULTIPLICATION,
+    L_BRACKET,
+    R_BRACKET
 }
 
 class Token{
-  TokenType token_type;
+  TokenType tokenType;
   String literal;
-  Token(this.token_type,this.literal);
+  Token({required this.tokenType, required this.literal});
+
+  @override
+  String toString() => '${tokenType.name}:$literal';
 
 
-  String toString(){
+  static TokenType lookUpTokenType(String tokenType){
 
-    return (this.token_type.name+':'+this.literal);
-
-  }
-
-
-  TokenType? look_up_token_type(String token_type){
-
-     var keywords ={
-        '=':TokenType.ASSIGN,
-        ',':TokenType.COMMA,
-        '.':TokenType.PERIODT,
-        '/':TokenType.DIV,
-        'false':TokenType.FALSE,
-        'true':TokenType.TRUE,
-        'if':TokenType.IF,
-        'else':TokenType.ELSE,
-        'let':TokenType.LET,
-        'function':TokenType.FUNCTION,
-        'return':TokenType.RETURN,
-        'EOF':TokenType.EOF,
-        '==':TokenType.EQ,
-        '>':TokenType.GT,
-        '>=':TokenType.GTE,
-        'ident':TokenType.IDENT,
-        '?':TokenType.ILLEGAL,
-        'int':TokenType.INT,
-        '<':TokenType.LT,
-        '<=':TokenType.LTE
-     };
-
-     
+     const keywords = {
+    'false': TokenType.FALSE,
+    'true': TokenType.TRUE,
+    'if': TokenType.IF,
+    'else': TokenType.ELSE,
+    'let': TokenType.LET,
+    'function': TokenType.FUNCTION,
+    'return': TokenType.RETURN,
+    'EOF': TokenType.EOF,
+    'ident': TokenType.IDENT,
+    'int': TokenType.INT,
+  };
     
-     return keywords.containsKey(token_type)
-      ? keywords[token_type]: TokenType.IDENT;
-
+    return keywords[tokenType] ?? TokenType.IDENT;
   }
  
 }
