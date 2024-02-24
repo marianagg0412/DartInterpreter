@@ -11,7 +11,7 @@ class Lexer{
   }
   void _readChar(){
     if(readCurrentPos >= source.length){
-      currentChar = '\0';
+      currentChar = '0';
     }else{
       currentChar = source[readCurrentPos];
       position = readCurrentPos;
@@ -68,7 +68,7 @@ class Lexer{
   Token nextToken() {
     _skipWhiteSpace();
     Token? token;
-    if (currentChar == '\0') {
+    if (currentChar == '0') {
       token = Token(tokenType: TokenType.EOF, literal: '');
     } else if(_isDigit(currentChar)) {
       String number = readNumber();
