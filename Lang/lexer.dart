@@ -4,28 +4,31 @@ class Lexer{
   final String source;
   int position = 0;
   String currentChar = '';
+  int readCurrentPos = 0;
 
   Lexer({required this.source}){
     _readChar();
   }
   void _readChar(){
-    if(position >= source.length){
+    if(readCurrentPos >= source.length){
       currentChar = '\0';
     }else{
-      currentChar = source[position];
+      currentChar = source[readCurrentPos];
+      position = readCurrentPos;
+      readCurrentPos++;
     }
-    position++;
   }
+
   String _peekChar(){
-    if(position >= source.length){
-      return '\0';
+    if(readCurrentPos >= source.length){
+      return '';
     }else{
-      return source[position];
+      return source[readCurrentPos];
     }
   }
 
   void _skipWhiteSpace() {
-  while (currentChar.contains(RegExp(r'\s')) && position < source.length) {
+  while (currentChar.contains(RegExp(r'\s'))){
     _readChar();
   }
 }
@@ -35,34 +38,55 @@ class Lexer{
   }
 
   bool _isDigit(String char){
-    return char.contains(RegExp(r'[0-9]'));
-  }
-
-  String readIdentifier(){
-    final pos = position;
-    while(_isLetter(currentChar) || _isDigit(currentChar)){
-      _readChar();
-    }
-    return source.substring(pos, position);
+    return '0123456789'.contains(char);
   }
 
   String readNumber(){
     final pos = position;
-    while(_isDigit(currentChar)){
-      _readChar();
+    while(position < source.length && _isDigit(currentChar)){
+      position++;
+      if(position < source.length){
+        currentChar = source[position];
+      }
     }
+    readCurrentPos = position;
     return source.substring(pos, position);
   }
 
-  Token nextToken(){
+  String readIdentifier(){
+    final pos = position;
+    while(position < source.length && (_isLetter(currentChar) || _isDigit(currentChar))){
+      position++;
+      if(position < source.length){
+        currentChar = source[position];
+      }
+    }
+    readCurrentPos = position;
+    return source.substring(pos, position);
+  }
+
+  Token nextToken() {
     _skipWhiteSpace();
     Token? token;
-    if(currentChar == '='){
-      if(_peekChar() == '='){
+    if (currentChar == '\0') {
+      token = Token(tokenType: TokenType.EOF, literal: '');
+    } else if(_isDigit(currentChar)) {
+      String number = readNumber();
+      token = Token(tokenType: TokenType.INT, literal: number);
+      position = readCurrentPos;
+      if (position < source.length) {
+        currentChar = source[position];
+      }
+    } else if(_isLetter(currentChar)){
+      String literal = readIdentifier();
+      TokenType tokenType = Token.lookUpTokenType(literal);
+      token = Token(tokenType: tokenType, literal: literal);
+    } else if(currentChar == '=') {
+      if (_peekChar() == '=') {
         final char = currentChar;
         _readChar();
         token = Token(tokenType: TokenType.EQ, literal: char + currentChar);
-      }else{
+      } else {
         final char = currentChar;
         _readChar();
         token = Token(tokenType: TokenType.ASSIGN, literal: char);
@@ -117,7 +141,7 @@ class Lexer{
       }else{
         token = Token(tokenType: TokenType.NOT, literal: currentChar);
       }
-    }else{
+    } else {
       token = Token(tokenType: TokenType.ILLEGAL, literal: currentChar);
     }
     _readChar();
