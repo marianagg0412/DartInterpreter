@@ -2,7 +2,7 @@ import 'token.dart';
 class Lexer{
   final String source;
   int position = 0;
-  String currentChar = '';
+  String currentChar = String.fromCharCode(00);
   int readCurrentPos = 0;
 
   Lexer({required this.source}){
@@ -10,7 +10,7 @@ class Lexer{
   }
   void _readChar(){
     if(readCurrentPos >= source.length){
-      currentChar = '0';
+      currentChar = String.fromCharCode(00);
     }else{
       currentChar = source[readCurrentPos];
       position = readCurrentPos;
@@ -80,14 +80,12 @@ class Lexer{
       TokenType tokenType = Token.lookUpTokenType(literal);
       token = Token(tokenType: tokenType, literal: literal);
     } else if(currentChar == '=') {
-      if (_peekChar() == '=') {
+      if(_peekChar() == '='){
         final char = currentChar;
         _readChar();
         token = Token(tokenType: TokenType.EQ, literal: char + currentChar);
-      } else {
-        final char = currentChar;
-        _readChar();
-        token = Token(tokenType: TokenType.ASSIGN, literal: char);
+      }else{
+        token = Token(tokenType: TokenType.ASSIGN, literal: currentChar);
       }
     }else if(currentChar == '+'){
       token = Token(tokenType: TokenType.PLUS, literal: currentChar);
