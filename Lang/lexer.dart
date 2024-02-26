@@ -67,9 +67,8 @@ class Lexer{
   Token nextToken() {
     _skipWhiteSpace();
     Token? token;
-    if (currentChar == '0') {
-      token = Token(tokenType: TokenType.EOF, literal: '');
-    } else if(_isDigit(currentChar)) {
+
+    if(_isDigit(currentChar)) {
       String number = readNumber();
       token = Token(tokenType: TokenType.INT, literal: number);
       position = readCurrentPos;
