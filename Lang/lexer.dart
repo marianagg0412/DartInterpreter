@@ -80,14 +80,12 @@ class Lexer{
       TokenType tokenType = Token.lookUpTokenType(literal);
       token = Token(tokenType: tokenType, literal: literal);
     } else if(currentChar == '=') {
-      if (_peekChar() == '=') {
+      if(_peekChar() == '='){
         final char = currentChar;
         _readChar();
         token = Token(tokenType: TokenType.EQ, literal: char + currentChar);
-      } else {
-        final char = currentChar;
-        _readChar();
-        token = Token(tokenType: TokenType.ASSIGN, literal: char);
+      }else{
+        token = Token(tokenType: TokenType.GT, literal: currentChar);
       }
     }else if(currentChar == '+'){
       token = Token(tokenType: TokenType.PLUS, literal: currentChar);
