@@ -1,4 +1,4 @@
-
+import 'token.dart';
 class Lexer{
   final String source;
   int position = 0;

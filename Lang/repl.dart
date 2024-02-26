@@ -12,7 +12,7 @@ void startRepl() {
     if (input == null || input == 'exit') { // Check for exit conditions
       break; // Exit the loop
     }
-/*
+
     try { // Handle potential errors
       final lexer = Lexer(source: input);
       while (lexer.currentChar != '\0') { // Process tokens until EOF
@@ -21,7 +21,7 @@ void startRepl() {
       }
     } catch (error) {
       print('Error: $error'); // Handle errors gracefully
-    }*/
+    }
 
     stdout.write('>>> ');
   }
