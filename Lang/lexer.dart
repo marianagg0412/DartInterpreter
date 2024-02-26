@@ -2,7 +2,7 @@ import 'token.dart';
 class Lexer{
   final String source;
   int position = 0;
-  String currentChar = String.fromCharCode(0);
+  String currentChar = String.fromCharCode(00);
   int readCurrentPos = 0;
 
   Lexer({required this.source}){
