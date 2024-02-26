@@ -9,7 +9,8 @@ Work in Progress: Actively under development and subject to future changes.
 Getting Started:
 
 Clone the repository: git clone https://github.com/marianagg0412/DartInterpreter.git
-Install dependencies: Dart
+
+Install dependencies: Dart SDK
 
 Using the Interpreter:
 
