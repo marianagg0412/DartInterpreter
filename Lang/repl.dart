@@ -15,8 +15,7 @@ void startRepl() {
 
     try { // Handle potential errors
       final lexer = Lexer(source: input);
-      print(lexer.currentChar.codeUnitAt(0));
-      while (lexer.currentChar != "\0") { // Process tokens until EOF
+      while (lexer.currentChar != String.fromCharCode(00)) { // Process tokens until EOF
         final token = lexer.nextToken();
         print(token);
       }
