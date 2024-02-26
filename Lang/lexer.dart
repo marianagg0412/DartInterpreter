@@ -1,4 +1,3 @@
-import 'token.dart';
 
 class Lexer{
   final String source;
@@ -65,6 +64,7 @@ class Lexer{
     return source.substring(pos, position);
   }
 
+  /*
   Token nextToken() {
     _skipWhiteSpace();
     Token? token;
@@ -147,4 +147,5 @@ class Lexer{
     _readChar();
     return token;
     }
+    */
 }
