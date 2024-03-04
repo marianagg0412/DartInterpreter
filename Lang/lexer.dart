@@ -67,7 +67,7 @@ class Lexer{
   Token nextToken() {
     _skipWhiteSpace();
 
-    if (currentChar == '0') { // End of file check
+    if (currentChar == String.fromCharCode(00)) { // End of file check
         return Token(tokenType: TokenType.EOF, literal: "");
     }
 

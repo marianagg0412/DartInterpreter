@@ -3,6 +3,8 @@
 import 'lexer.dart';
 import 'dart:io';
 
+import 'token.dart';
+
 void startRepl() {
   stdout.write('>>> ');
 
@@ -17,7 +19,7 @@ void startRepl() {
       final lexer = Lexer(source: input);
       while (lexer.currentChar != String.fromCharCode(00)) { // Process tokens until EOF
         final token = lexer.nextToken();
-        if(!(token.literal == String.fromCharCode(00))){
+        if(token.tokenType != TokenType.EOF){
           print(token);
         }
       }
