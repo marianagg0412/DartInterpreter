@@ -49,7 +49,6 @@ class Lexer{
       }
     }
     readCurrentPos = position;
-    _skipWhiteSpace();
     return source.substring(pos, position);
   }
 
@@ -62,7 +61,6 @@ class Lexer{
       }
     }
     readCurrentPos = position;
-    _skipWhiteSpace();
     return source.substring(pos, position);
   }
 

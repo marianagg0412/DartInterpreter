@@ -17,7 +17,9 @@ void startRepl() {
       final lexer = Lexer(source: input);
       while (lexer.currentChar != String.fromCharCode(00)) { // Process tokens until EOF
         final token = lexer.nextToken();
-        print(token);
+        if(!(token.literal == String.fromCharCode(00))){
+          print(token);
+        }
       }
     } catch (error) {
       print('Error: $error'); // Handle errors gracefully
