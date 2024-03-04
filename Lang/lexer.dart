@@ -68,6 +68,11 @@ class Lexer{
 
   Token nextToken() {
     _skipWhiteSpace();
+
+    if (currentChar == '0') { // End of file check
+        return Token(tokenType: TokenType.EOF, literal: "");
+    }
+
     Token? token;
 
     if(_isDigit(currentChar)) {
